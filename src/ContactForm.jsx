@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import './ContactForm.css' 
 
 function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phonenumber: '', message: '' });
   const [submittedData, setSubmittedData] = useState(null);
   const [errors, setErrors] = useState({});
 
@@ -23,7 +24,7 @@ function ContactForm() {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       setSubmittedData(formData);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phonenumber: '', message: '' });
       setErrors({});
     } else {
       setErrors(validationErrors);
@@ -31,23 +32,27 @@ function ContactForm() {
   };
 
   return (
-    <div>
+    <div className="contact-form">
       <h2>Contact Us</h2>
       <form onSubmit={handleSubmit}>
         <label>Name:<br />
           <input type="text" name="name" value={formData.name} onChange={handleChange} />
           {errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
-        </label><br /><br />
+        </label><br />
 
         <label>Email:<br />
           <input type="email" name="email" value={formData.email} onChange={handleChange} />
           {errors.email && <p style={{color: 'red'}}>{errors.email}</p>}
-        </label><br /><br />
+        </label><br />
+
+        <label>Phone number:<br />
+          <input type="phonenumber" name="phonenumber" value={formData.phonenumber} onChange={handleChange} />
+        </label><br />
 
         <label>Message:<br />
           <textarea name="message" rows="5" value={formData.message} onChange={handleChange}></textarea>
           {errors.message && <p style={{color: 'red'}}>{errors.message}</p>}
-        </label><br /><br />
+        </label><br />
 
         <button type="submit">Submit</button>
       </form>
